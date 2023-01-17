@@ -1,6 +1,33 @@
-﻿namespace HD_Backend.Data
+﻿using HD_Backend.Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace HD_Backend.Data
 {
-    public class HelpDeskDbContext
+    public class HelpDeskDbContext : IdentityDbContext<User>
     {
+        private readonly IConfiguration Configuration;
+
+        public HelpDeskDbContext(IConfiguration configuration, DbContextOptions options) : base(options)
+        {
+            Configuration = configuration;
+        }
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            options.UseSqlServer(Configuration.GetConnectionString("HelpDeskAPI"));
+        }
+
+        public DbSet<Agent> Agents { get; set; }
+
+        public DbSet<Ticket> Tickets { get; set; }
+
+        public DbSet<Department> Departments { get; set;  }
+
+        public DbSet<Faculty> Faculties { get; set; }
+
+
     }
 }
