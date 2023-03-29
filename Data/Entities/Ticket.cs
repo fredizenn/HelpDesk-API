@@ -4,7 +4,7 @@
     {
         public long Id { get; set; }
 
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
         public long? DepartmentId { get; set; }
 
@@ -14,10 +14,10 @@
 
         public Faculty? Faculty { get; set; }
 
-        public string Status { get; set; }
+        public string? Status { get; set; }
 
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
-        public string Priority { get; set; }
+        public string? Priority { get; set; }
     }
 }

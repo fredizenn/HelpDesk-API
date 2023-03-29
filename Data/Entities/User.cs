@@ -4,6 +4,10 @@ namespace HD_Backend.Data.Entities
 {
     public class User : IdentityUser
     {
+        public string? Firstname { get; set; }
+
+        public string? Lastname { get; set; }
+
         public long? DepartmentId { get; set; }
 
         public Department? Department { get; set; }
@@ -12,6 +16,5 @@ namespace HD_Backend.Data.Entities
 
         public Faculty? Faculty { get; set; }
 
-        public string FullName { get; set; } 
     }
 }

@@ -20,8 +20,6 @@ namespace HD_Backend.Data
             options.UseSqlServer(Configuration.GetConnectionString("HelpDeskAPI"));
         }
 
-        public DbSet<Agent> Agents { get; set; }
-
         public DbSet<Ticket> Tickets { get; set; }
 
         public DbSet<Department> Departments { get; set;  }

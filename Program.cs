@@ -1,16 +1,38 @@
 using HD_Backend.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using HD_Backend.Filters.ActionFilters;
+using HD_Backend.Data.Entities;
+using HD_Backend.Data.Services;
+using HD_Backend.Data.Interfaces;
+using HD_Backend.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+LoggerManager logger = new LoggerManager();
 
-// Add services to the container.
-builder.Services.AddDbContext<HelpDeskDbContext>();
-builder.Services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-builder.Services.AddAutoMapper(typeof(HelpDeskDbContext));
+builder.Services.ConfigureResponseCaching();
+
+builder.Services.RegisterDependencies();
+builder.Services.ConfigureMapping();
+builder.Services.ConfigureLoggerService();
+
+builder.Services.ConfigureSqlContext(builder.Configuration);
+builder.Services.ConfigureRepositoryManager();
+
+
+builder.Services.AddAuthentication();
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureSwagger();
+builder.Services.ConfigureJWT(builder.Configuration);
+
+builder.Services.ConfigureControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
@@ -28,13 +50,9 @@ app.UseCors(x => x
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
-
-//app.MapControllers();
+app.MapControllers();
 
 app.Run();
