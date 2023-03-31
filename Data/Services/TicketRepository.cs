@@ -12,18 +12,29 @@ namespace HD_Backend.Data.Services
 
         }
 
-        public async Task CreateTicket(Ticket ticket, long facultyId, long departmentId)
+        public async Task CreateTicket(Ticket ticket)
         {
-            ticket.DepartmentId = departmentId;
-            ticket.FacultyId = facultyId;
             await CreateAsync(ticket);
         }
 
         public async Task<IEnumerable<Ticket>> GetAllTickets(bool trackChanges)
-            => await FindAllAsync(trackChanges).Result.OrderBy(c => c.Id).ToListAsync();
+            => await FindAllAsync(trackChanges).Result
+            .Include(t => t.Faculty)
+            .Include(t => t.Department)
+            .OrderBy(c => c.Id)
+            .ToListAsync();
 
-        public async Task<Ticket?> GetTicket(long ticketId, long departmentId, long facultyId, bool trackChanges)
-            => await FindByConditionAsync(c => c.Id.Equals(ticketId), trackChanges).Result.SingleOrDefaultAsync();
+        public async Task<Ticket?> GetTicket(long ticketId, bool trackChanges)
+            => await FindByConditionAsync(c => c.Id.Equals(ticketId), trackChanges).Result
+             .Include(t => t.Faculty)
+             .Include(t => t.Department)
+             .SingleOrDefaultAsync();
+
+        public async Task<Ticket?> GetTicketByCode(string code, bool trackChanges) => 
+                 await FindByConditionAsync(t => t.Code.Equals(code), trackChanges).Result
+                .Include(t => t.Faculty)
+                .Include(t => t.Department)
+                .SingleOrDefaultAsync();
 
         public async Task DeleteTicket(Ticket ticket) => await RemoveAsync(ticket);
     }

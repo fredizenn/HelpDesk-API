@@ -11,6 +11,18 @@
         public string? Type { get; set; }
 
         public string? Priority { get; set; }
+
+        public long? DepartmentId { get; set; }
+
+        public string? DepartmentCode { get; set; }
+
+        public string? DepartmentName { get; set; }
+
+        public long? FacultyId { get; set; }
+
+        public string? FacultyName { get; set; }
+
+        public string? FacultyCode { get; set; }
     }
 
     public class CreateTicketDto : TicketAddUpdateDto
@@ -32,5 +44,9 @@
         public string? Type { get; set; }
 
         public string? Priority { get; set; }
+
+        public long? DepartmentId { get; set; }
+
+        public long? FacultyId { get; set; }
     }
 }

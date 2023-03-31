@@ -8,11 +8,13 @@ namespace HD_Backend.Data.Mappings
     {
         public FacultyMappingProfile()
         {
-            CreateMap<Faculty, FacultyDto>();
+            CreateMap<Faculty, FacultyDto>()
+                .ForMember(t => t.DepartmentName, opt => opt.MapFrom(t => t.Department.Name));
 
             CreateMap<CreateFacultyDto, Faculty>();
 
-            CreateMap<UpdateFacultyDto, Faculty>().ReverseMap();
+            CreateMap<UpdateFacultyDto, Faculty>().ReverseMap(); 
         }
-    }
+    } 
 }
+ 

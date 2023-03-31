@@ -4,12 +4,12 @@
     {
        IDepartmentRepository Department { get; }
 
-       // IFacultyRepository Faculty { get; }
+       IFacultyRepository Faculty { get; }
 
-       // ITicketRepository Ticket { get; }
+       ITicketRepository Ticket { get; }
 
-        IUserAuthenticationRepository UserAuthentication { get; }
+       IUserAuthenticationRepository UserAuthentication { get; }
 
-        Task SaveAsync();
+       Task SaveAsync();
     }
 }

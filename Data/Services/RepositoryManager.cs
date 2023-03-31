@@ -10,7 +10,7 @@ namespace HD_Backend.Data.Services
         private HelpDeskDbContext _dbContext;
         private ITicketRepository _ticketRepository;
         private IDepartmentRepository _departmentRepository;
-        private IFacultyRepository _faultyRepository;
+        private IFacultyRepository _facultyRepository;
         private IUserAuthenticationRepository _userAuthenticationRepository;
         private UserManager<User> _userManager;
         private IMapper _mapper;
@@ -41,6 +41,16 @@ namespace HD_Backend.Data.Services
                 if (_departmentRepository is null)
                     _departmentRepository = new DepartmentRepository(_dbContext);
                 return _departmentRepository;
+            }
+        }
+
+        public IFacultyRepository Faculty
+        {
+            get
+            {
+                if (_facultyRepository is null)
+                    _facultyRepository = new FacultyRepository(_dbContext);
+                return _facultyRepository;
             }
         }
 

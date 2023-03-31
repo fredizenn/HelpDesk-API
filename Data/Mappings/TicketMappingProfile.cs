@@ -8,7 +8,11 @@ namespace HD_Backend.Data.Mappings
     {
        public  TicketMappingProfile()
         {
-            CreateMap<Ticket, TicketDto>();
+            CreateMap<Ticket, TicketDto>()
+                .ForMember(t => t.DepartmentCode, opt => opt.MapFrom(t => t.Department.Code))
+                .ForMember(t => t.DepartmentName, opt => opt.MapFrom(t => t.Department.Name))
+                .ForMember(t => t.FacultyName, opt => opt.MapFrom(t => t.Faculty.Name))
+                .ForMember(t => t.FacultyCode, opt => opt.MapFrom(t => t.Faculty.Code));
 
             CreateMap<CreateTicketDto, Ticket>();
 

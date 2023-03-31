@@ -7,6 +7,12 @@
         public string? Name { get; set; }
 
         public string? Code { get; set; }
+
+        public long? DepartmentId { get; set; }
+
+        public string? DepartmentName { get; set; }
+
+
     }
 
     public class CreateFacultyDto : FacultyAddUpdateDto
@@ -24,5 +30,7 @@
         public string? Name { get; set; }
 
         public string? Code { get; set; }
+
+        public long? DepartmentId { get; set; }
     }
 }
