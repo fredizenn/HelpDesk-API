@@ -1,4 +1,5 @@
 ﻿using HD_Backend.Data.Dtos;
+using HD_Backend.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace HD_Backend.Data.Interfaces
@@ -10,5 +11,7 @@ namespace HD_Backend.Data.Interfaces
         Task<bool> ValidateUserAsync(UserLoginDto loginDto);
 
         Task<string> CreateTokenAsync();
+
+
     }
 }

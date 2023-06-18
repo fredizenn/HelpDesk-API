@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HD_Backend.Data;
 using HD_Backend.Data.Dtos;
 using HD_Backend.Data.Entities;
 using HD_Backend.Data.Interfaces;
@@ -10,11 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace HD_Backend.Controllers
 {
     [Route("api/Departments")]
-    [Authorize]
-    [ApiController]
     public class DepartmentsController : BaseApiController
     {
-        public DepartmentsController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper) : base(repository, logger, mapper)
+        public DepartmentsController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper, HelpDeskDbContext dbContext) : base(repository, logger, mapper, dbContext)
         {
         }
 
@@ -38,8 +37,6 @@ namespace HD_Backend.Controllers
         }
 
         [HttpGet]
-        [ResponseCache(CacheProfileName = "30SecondsCaching")]
-
         public async Task<IActionResult> GetDepartments()
         {
             try

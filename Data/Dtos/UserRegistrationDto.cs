@@ -14,5 +14,9 @@ namespace HD_Backend.Data.Dtos
         public string? Password { get; init; }
         public string? Email { get; init; }
         public string? PhoneNumber { get; init; }
+
+        public long? DepartmentId { get; set; }
+
+        public long? FacultyId { get; set; }
     }
 }

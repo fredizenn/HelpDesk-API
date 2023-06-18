@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using HD_Backend.Data.Dtos;
 using HD_Backend.Data.Entities;
+using HD_Backend.Data.GenericRepository.cs.Service;
 using HD_Backend.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -30,6 +32,8 @@ namespace HD_Backend.Data.Services
             var result = await _userManager.CreateAsync(user, userRegistration.Password);
             return result;
         }
+
+
 
         public async Task<bool> ValidateUserAsync(UserLoginDto loginDto)
         {

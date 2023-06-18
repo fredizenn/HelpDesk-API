@@ -12,12 +12,14 @@ namespace HD_Backend.Controllers
         protected readonly IRepositoryManager _repository;
         protected readonly ILoggerManager _logger;
         protected readonly IMapper _mapper;
+        protected readonly HelpDeskDbContext _dbContext;
 
-        public BaseApiController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+        public BaseApiController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper, HelpDeskDbContext dbContext)
         {
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
+            _dbContext = dbContext;
         }
     }
 }

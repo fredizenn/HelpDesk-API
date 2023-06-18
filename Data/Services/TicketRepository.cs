@@ -21,7 +21,7 @@ namespace HD_Backend.Data.Services
             => await FindAllAsync(trackChanges).Result
             .Include(t => t.Faculty)
             .Include(t => t.Department)
-            .OrderBy(c => c.Id)
+            .OrderByDescending(c => c.Id)
             .ToListAsync();
 
         public async Task<Ticket?> GetTicket(long ticketId, bool trackChanges)

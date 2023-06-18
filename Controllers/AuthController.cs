@@ -12,7 +12,7 @@ namespace HD_Backend.Controllers
     [ApiController]
     public class AuthController : BaseApiController
     {
-        public AuthController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper) : base(repository, logger, mapper)
+        public AuthController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper, HelpDeskDbContext dbContext) : base(repository, logger, mapper, dbContext)
         {
 
         }
@@ -33,7 +33,9 @@ namespace HD_Backend.Controllers
         {
             return !await _repository.UserAuthentication.ValidateUserAsync(user)
                 ? Unauthorized("Invalid username or password")
-                : Ok(new { Token = await _repository.UserAuthentication.CreateTokenAsync() });
+                : Ok(new {Message = "Logged in successfully", Token = await _repository.UserAuthentication.CreateTokenAsync() });
         }
+
+     
     }
 }
