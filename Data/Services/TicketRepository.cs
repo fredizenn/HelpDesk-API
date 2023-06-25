@@ -24,6 +24,7 @@ namespace HD_Backend.Data.Services
             .OrderByDescending(c => c.Id)
             .ToListAsync();
 
+
         public async Task<Ticket?> GetTicket(long ticketId, bool trackChanges)
             => await FindByConditionAsync(c => c.Id.Equals(ticketId), trackChanges).Result
              .Include(t => t.Faculty)

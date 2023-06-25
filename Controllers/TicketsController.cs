@@ -42,6 +42,7 @@ namespace HD_Backend.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateTicket([FromBody] CreateTicketDto ticket)
         {
+
             // Check if a ticket with the given code already exists
             var ticketCode = await _repository.Ticket.GetTicketByCode(ticket.Code, trackChanges: false);
             if (ticketCode != null)
@@ -52,7 +53,13 @@ namespace HD_Backend.Controllers
             else
             {
                 // Map the CreateTicketDto object to a Ticket object
+                var tickets = await _repository.Ticket.GetAllTickets(trackChanges: false);
+                var ticketCount = tickets.Count();
+                string tCode = GenerateTicketCode(ticketCount);
+
                 var ticketData = _mapper.Map<Ticket>(ticket);
+
+                ticketData.Code = tCode;
 
                 // Create the ticket in the repository
                 await _repository.Ticket.CreateTicket(ticketData);
@@ -68,6 +75,14 @@ namespace HD_Backend.Controllers
             }
         }
 
+        private string GenerateTicketCode (int ticketCount)
+        {
+            var prefix = "T";
+            var tCode = $"{prefix}{ticketCount.ToString().PadLeft(2, '0')}";
+
+            return tCode;
+            
+        }
 
         //HTTP request to fetch all tickets
         [HttpGet]
@@ -92,6 +107,34 @@ namespace HD_Backend.Controllers
                 // Return a StatusCode 500 (Internal Server Error) response with a generic error message
                 return StatusCode(500, "Internal server error");
             }
+        }
+
+
+        //HTTP request to get one ticket by id
+        [HttpGet("{ticketId}")]
+        public async Task<IActionResult> GetOneTicket(long ticketId)
+        {
+            try
+            {
+                var ticket = await _repository.Ticket.GetTicket(ticketId, trackChanges: false);
+                if (ticket == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    var ticketDto = _mapper.Map<TicketDto>(ticket);
+                    return Ok(ticketDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong in the {nameof(GetOneTicket)} action {ex}");
+
+                return StatusCode(500, "Internal Server Error");
+
+            }
+
         }
 
 
