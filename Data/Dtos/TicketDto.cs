@@ -32,6 +32,9 @@
 
         public DateTime? CreatedDate { get; set; }
 
+        public string? ContactEmail { get; set; }
+
+
         public bool IsResolved { get; set; }
 
         public bool OnHold { get; set; }
@@ -87,6 +90,8 @@
         public string? ContactName { get; set; }
 
         public string? ContactPhoneNumber { get; set; }
+
+        public string? ContactEmail { get; set; }
 
         public string? TicketDescription { get; set; }
 

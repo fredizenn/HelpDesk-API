@@ -24,6 +24,8 @@
 
         public string? ContactPhoneNumber { get; set; }
 
+        public string? ContactEmail { get; set; }
+
         public string? TicketDescription { get; set; }
 
         public DateTime? CreatedDate { get; set; } = DateTime.UtcNow;
